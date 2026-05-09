@@ -13,3 +13,21 @@ VARIABLE RULES:
   - Must start with a letter or an underscore
   - Can have numbers but can not start with one
 """
+x = 2 #integer
+y = 3.5 #float
+name =  "john" #str
+is_cool = True #bool
+
+# multiple assignments
+x, y, name, is_cool = (2, 3.5, "john", True)
+print(x, y, name, is_cool)
+print(type(x))
+print(type(y))
+print(type(name))
+print(type(is_cool))
+print('Hello, my name is ' + name)
+print(x,y,name,is_cool)
+
+# type casting
+x =str(x) # x is now a string
+y = int(y) # y is now an integer
