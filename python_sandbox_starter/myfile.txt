@@ -1,0 +1,4 @@
+Hello, this is a file created in Python.
+This file is used to demonstrate file handling in Python.
+Python makes it easy to work with files.
+This line is added to the end of the file.
