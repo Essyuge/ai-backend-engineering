@@ -264,4 +264,84 @@ def project_3_grades():
     print(f"  F (<70): {F} students")
     
     separator()
+
+ # ============================================================================
+# PROJECT 4: SALES DATA ANALYSIS
+# ============================================================================
+ 
+def project_4_sales():
+    print_header("PROJECT 4: SALES DATA ANALYSIS")
+    
+    print_code_section("4.1 - Create sales dataset")
+    print("Use case: Analyze multi-store, multi-quarter sales")
+    print()
+    
+    # Sales data: 3 stores, 4 quarters
+    sales = np.array([
+        [50000, 55000, 60000, 65000],   # NYC Store
+        [40000, 42000, 45000, 48000],   # LA Store
+        [60000, 62000, 65000, 70000],   # Chicago Store
+    ])
+    
+    stores = np.array(['NYC', 'LA', 'Chicago'])
+    quarters = np.array(['Q1', 'Q2', 'Q3', 'Q4'])
+    
+    print(f"Sales shape: {sales.shape} (3 stores × 4 quarters)")
+    print("Sales data (in dollars):")
+    print(sales)
+    
+    separator()
+    print_code_section("4.2 - Store performance")
+    
+    # Total sales per store
+    store_totals = sales.sum(axis=1)
+    print("Total annual sales per store:")
+    for store, total in zip(stores, store_totals):
+        print(f"  {store:10s}: ${total:,}")
+    
+    # Average sales per store
+    store_avg = sales.mean(axis=1)
+    print("\nAverage quarterly sales per store:")
+    for store, avg in zip(stores, store_avg):
+        print(f"  {store:10s}: ${avg:,.0f}")
+    
+    # Best and worst store
+    best_store = stores[store_totals.argmax()]
+    worst_store = stores[store_totals.argmin()]
+    print(f"\nBest store: {best_store}")
+    print(f"Worst store: {worst_store}")
+    
+    separator()
+    print_code_section("4.3 - Quarterly performance")
+    
+    # Quarterly totals
+    quarterly_totals = sales.sum(axis=0)
+    print("Total sales per quarter:")
+    for quarter, total in zip(quarters, quarterly_totals):
+        print(f"  {quarter}: ${total:,}")
+    
+    # Best quarter
+    best_quarter = quarters[quarterly_totals.argmax()]
+    print(f"\nBest quarter: {best_quarter}")
+    
+    separator()
+    print_code_section("4.4 - Growth analysis")
+    
+    # Growth rate (Q4 vs Q1)
+    growth = ((sales[:, 3] - sales[:, 0]) / sales[:, 0] * 100)
+    print("Growth rates (Q1 to Q4):")
+    for store, rate in zip(stores, growth):
+        direction = "↑" if rate > 0 else "↓"
+        print(f"  {store:10s}: {direction} {rate:+.1f}%")
+    
+    separator()
+    print_code_section("4.5 - Store rankings")
+    
+    # Rank stores by total sales
+    rank_indices = np.argsort(store_totals)[::-1]  # Descending order
+    print("Store rankings by total sales:")
+    for i, idx in enumerate(rank_indices, 1):
+        print(f"  {i}. {stores[idx]:10s}: ${store_totals[idx]:,}")
+    
+    separator()
   
