@@ -38,9 +38,16 @@ class Employee:
     def from_string(cls, employee_str):
         first, last, age, position = employee_str.split(',')
         return cls(first, last, int(age), position)
+
+    @classmethod
+    def change_company_name(cls, new_name):
+        cls.company_name = new_name
+Employee.change_company_name("New Tech Company")  # This will change the company name for all instances of the Employee class
+print(Employee.company_name)  # This will print "New Tech Company"
+
 employee_str = "John,Doe,30,Software Engineer"
 employee1 = Employee.from_string(employee_str)  # This will create an instance of Employee using the from_string class method
-employee1.display_info()  # This will call the display_info method and print the employee's information
+print(employee1.company_name)  # This will also print "New Tech Company" since the company_name is a class variable shared among all instances of the Employee class
 
 # 3. Static methods
 # Static methods are defined using the `@staticmethod` decorator and do not take `self` or `cls` as the first parameter. 
