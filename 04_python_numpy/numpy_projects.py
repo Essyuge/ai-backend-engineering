@@ -344,4 +344,84 @@ def project_4_sales():
         print(f"  {i}. {stores[idx]:10s}: ${store_totals[idx]:,}")
     
     separator()
-  
+
+ 
+# ============================================================================
+# PROJECT 5: STATISTICS & DISTRIBUTIONS
+# ============================================================================
+ 
+def project_5_statistics():
+    print_header("PROJECT 5: STATISTICS & DISTRIBUTIONS")
+    
+    print_code_section("5.1 - Generate random data")
+    print("Use case: Analyze test scores with statistical methods")
+    print()
+    
+    # Generate random test scores (100 students)
+    np.random.seed(42)  # Reproducible results
+    scores = np.random.normal(75, 15, 100)  # Mean 75, std 15
+    scores = np.clip(scores, 0, 100)  # Keep between 0-100
+    
+    print(f"Generated {len(scores)} student test scores")
+    print(f"First 10 scores: {scores[:10]}")
+    
+    separator()
+    print_code_section("5.2 - Descriptive statistics")
+    
+    print(f"Mean (average): {scores.mean():.2f}")
+    print(f"Median (middle value): {np.median(scores):.2f}")
+    print(f"Mode (most frequent): ~{np.round(np.median(scores), 0):.0f}")
+    print(f"Std Dev (spread): {scores.std():.2f}")
+    print(f"Variance: {scores.var():.2f}")
+    print(f"Min: {scores.min():.2f}")
+    print(f"Max: {scores.max():.2f}")
+    print(f"Range: {scores.max() - scores.min():.2f}")
+    
+    separator()
+    print_code_section("5.3 - Percentiles")
+    
+    p25, p50, p75 = np.percentile(scores, [25, 50, 75])
+    print(f"25th percentile (Q1): {p25:.2f}")
+    print(f"50th percentile (Median): {p50:.2f}")
+    print(f"75th percentile (Q3): {p75:.2f}")
+    print(f"IQR (Q3-Q1): {p75-p25:.2f}")
+    
+    # Top performers
+    p90, p95, p99 = np.percentile(scores, [90, 95, 99])
+    print(f"\nTop performers:")
+    print(f"  Top 10% (90th): {p90:.2f}")
+    print(f"  Top 5% (95th): {p95:.2f}")
+    print(f"  Top 1% (99th): {p99:.2f}")
+    
+    separator()
+    print_code_section("5.4 - Grade distribution")
+    
+    A = (scores >= 90).sum()
+    B = ((scores >= 80) & (scores < 90)).sum()
+    C = ((scores >= 70) & (scores < 80)).sum()
+    D = ((scores >= 60) & (scores < 70)).sum()
+    F = (scores < 60).sum()
+    
+    total = len(scores)
+    print(f"A (90-100): {A:3d} students ({A/total*100:5.1f}%)")
+    print(f"B (80-89):  {B:3d} students ({B/total*100:5.1f}%)")
+    print(f"C (70-79):  {C:3d} students ({C/total*100:5.1f}%)")
+    print(f"D (60-69):  {D:3d} students ({D/total*100:5.1f}%)")
+    print(f"F (<60):    {F:3d} students ({F/total*100:5.1f}%)")
+    
+    separator()
+    print_code_section("5.5 - Outliers")
+    
+    # Outliers (beyond 2 std dev)
+    mean = scores.mean()
+    std = scores.std()
+    outlier_threshold = 2
+    outliers = np.abs(scores - mean) > outlier_threshold * std
+    outlier_count = outliers.sum()
+    
+    print(f"Outliers (>{outlier_threshold} std dev): {outlier_count} students")
+    if outlier_count > 0:
+        outlier_scores = scores[outliers]
+        print(f"Outlier scores: {np.sort(outlier_scores)}")
+    
+    separator() 
