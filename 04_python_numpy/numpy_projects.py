@@ -93,3 +93,72 @@ def project_1_stocks():
     
     separator()
  
+ 
+# ============================================================================
+# PROJECT 2: WEATHER DATA ANALYSIS
+# ============================================================================
+ 
+def project_2_weather():
+    print_header("PROJECT 2: WEATHER & TEMPERATURE ANALYSIS")
+    
+    print_code_section("2.1 - Create temperature dataset")
+    print("Use case: Analyze multi-dimensional weather data")
+    print()
+    
+    # Weather data: 7 days of temp readings (4 readings per day)
+    temperatures = np.array([
+        [22, 23, 24, 23],  # Day 1 (morning, noon, afternoon, evening)
+        [21, 22, 23, 22],  # Day 2
+        [20, 21, 22, 21],  # Day 3
+        [19, 20, 21, 20],  # Day 4
+        [18, 19, 20, 19],  # Day 5
+        [17, 18, 19, 18],  # Day 6
+        [16, 17, 18, 17],  # Day 7
+    ])
+    
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    times = ['6AM', '12PM', '6PM', '12AM']
+    
+    print(f"Dataset shape: {temperatures.shape} (7 days × 4 readings)")
+    print(f"Temperature data:\n{temperatures}\n")
+    
+    separator()
+    print_code_section("2.2 - Analyze temperatures")
+    
+    # Daily average temperature
+    daily_avg = temperatures.mean(axis=1)
+    print("Daily averages:")
+    for day, avg in zip(days, daily_avg):
+        print(f"  {day}: {avg:.1f}°C")
+    
+    # Hourly average across all days
+    hourly_avg = temperatures.mean(axis=0)
+    print(f"\nHourly averages: {hourly_avg}")
+    for time, avg in zip(times, hourly_avg):
+        print(f"  {time}: {avg:.1f}°C")
+    
+    # Hottest and coldest
+    print(f"\nMax temperature: {temperatures.max()}°C (Day {temperatures.argmax() // 4 + 1})")
+    print(f"Min temperature: {temperatures.min()}°C (Day {temperatures.argmin() // 4 + 1})")
+    
+    separator()
+    print_code_section("2.3 - Filter and analyze conditions")
+    
+    # Days above 20 degrees
+    warm_days = (daily_avg > 20).sum()
+    print(f"Days warmer than 20°C: {warm_days} days")
+    
+    # Cold days
+    cold_days = (daily_avg < 18).sum()
+    print(f"Days colder than 18°C: {cold_days} days")
+    
+    # Get indices of warm days
+    warm_indices = np.where(daily_avg > 20)[0]
+    print(f"Warm days (indices): {warm_indices}")
+    print(f"Warm days (names): {[days[i] for i in warm_indices]}")
+    
+    # Get data only for warm days
+    warm_data = temperatures[daily_avg > 20]
+    print(f"Warm days data shape: {warm_data.shape}")
+    
+    separator()
