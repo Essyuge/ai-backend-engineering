@@ -424,4 +424,113 @@ def project_5_statistics():
         outlier_scores = scores[outliers]
         print(f"Outlier scores: {np.sort(outlier_scores)}")
     
-    separator() 
+    separator()
+
+    
+# ============================================================================
+# PROJECT 6: MATRIX OPERATIONS
+# ============================================================================
+ 
+def project_6_matrix():
+    print_header("PROJECT 6: MATRIX OPERATIONS")
+    
+    print_code_section("6.1 - Matrix basics")
+    print("Use case: Matrix math for transformations and data manipulation")
+    print()
+    
+    # Create sample matrices
+    A = np.array([[1, 2], [3, 4]])
+    B = np.array([[5, 6], [7, 8]])
+    
+    print("Matrix A:")
+    print(A)
+    print("\nMatrix B:")
+    print(B)
+    
+    separator()
+    print_code_section("6.2 - Basic operations")
+    
+    print("A + B (addition):")
+    print(A + B)
+    
+    print("\nA - B (subtraction):")
+    print(A - B)
+    
+    print("\nA * 2 (scalar multiplication):")
+    print(A * 2)
+    
+    print("\nA * B (element-wise multiplication):")
+    print(A * B)
+    
+    separator()
+    print_code_section("6.3 - Matrix multiplication")
+    
+    result = np.dot(A, B)
+    print("A @ B (matrix multiplication):")
+    print(result)
+    print(f"Result shape: {result.shape}")
+    
+    separator()
+    print_code_section("6.4 - Transpose & Reshape")
+    
+    print("A.T (transpose):")
+    print(A.T)
+    
+    # Reshape example
+    C = np.arange(12)
+    print(f"\nOriginal array: {C}")
+    print(f"Reshape to (3,4):")
+    print(C.reshape(3, 4))
+    
+    separator()
+ 
+# ============================================================================
+# MAIN MENU
+# ============================================================================
+ 
+def main():
+    """Run all projects or select specific ones"""
+    
+    print(f"\n{BOLD}{GREEN}")
+    print("╔════════════════════════════════════════════════════════════╗")
+    print("║  🤖 NUMPY REAL-WORLD PROJECTS - INTERACTIVE LEARNING      ║")
+    print("║     Week 1: Python Fundamentals for AI Backend             ║")
+    print("╚════════════════════════════════════════════════════════════╝")
+    print(f"{RESET}")
+    
+    projects = {
+        '1': ('Stock Portfolio Analysis', project_1_stocks),
+        '2': ('Weather Data Analysis', project_2_weather),
+        '3': ('Student Grades Analysis', project_3_grades),
+        '4': ('Sales Data Analysis', project_4_sales),
+        '5': ('Statistics & Distributions', project_5_statistics),
+        '6': ('Matrix Operations', project_6_matrix),
+        '0': ('Run All Projects', None),
+    }
+    
+    print("\nAvailable Projects:")
+    for key, (title, _) in projects.items():
+        print(f"  {key}. {title}")
+    
+    choice = input("\n👉 Choose project (0 for all, or 1-6): ").strip()
+    
+    if choice == '0':
+        # Run all projects
+        project_1_stocks()
+        project_2_weather()
+        project_3_grades()
+        project_4_sales()
+        project_5_statistics()
+        project_6_matrix()
+    elif choice in projects and choice != '0':
+        if projects[choice][1]:
+            projects[choice][1]()
+    else:
+        print(f"{RED}Invalid choice!{RESET}")
+    
+    print(f"\n{BOLD}{GREEN}✓ All projects completed!{RESET}\n")
+ 
+if __name__ == "__main__":
+    main()
+ 
+ 
