@@ -162,3 +162,106 @@ def project_2_weather():
     print(f"Warm days data shape: {warm_data.shape}")
     
     separator()
+
+   
+# ============================================================================
+# PROJECT 3: STUDENT GRADES ANALYSIS
+# ============================================================================
+ 
+def project_3_grades():
+    print_header("PROJECT 3: STUDENT GRADES ANALYSIS")
+    
+    print_code_section("3.1 - Create grade dataset")
+    print("Use case: Analyze student performance across multiple exams")
+    print()
+    
+    # Student scores: 5 students, 4 exams each
+    grades = np.array([
+        [85, 88, 90, 92],  # Alice
+        [78, 80, 82, 85],  # Bob
+        [92, 94, 96, 98],  # Charlie
+        [65, 68, 70, 72],  # David
+        [88, 85, 87, 90],  # Emma
+    ])
+    
+    students = np.array(['Alice', 'Bob', 'Charlie', 'David', 'Emma'])
+    exams = ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4']
+    
+    print(f"Grades shape: {grades.shape} (5 students × 4 exams)")
+    print("Grades:\n", grades)
+    
+    separator()
+    print_code_section("3.2 - Performance analysis")
+    
+    # Each student's average
+    student_avg = grades.mean(axis=1)
+    print("Student averages:")
+    for name, avg in zip(students, student_avg):
+        status = "✓ Good" if avg >= 75 else "✗ Needs help"
+        print(f"  {name:10s}: {avg:6.2f}  {status}")
+    
+    # Each exam's difficulty
+    exam_avg = grades.mean(axis=0)
+    print(f"\nExam difficulty (average scores):")
+    for exam, avg in zip(exams, exam_avg):
+        print(f"  {exam}: {avg:.2f}")
+    
+    separator()
+    print_code_section("3.3 - Identify top/bottom performers")
+    
+    # Best student
+    best_idx = student_avg.argmax()
+    best_student = students[best_idx]
+    print(f"Best student: {best_student} ({student_avg[best_idx]:.2f})")
+    
+    # Worst student
+    worst_idx = student_avg.argmin()
+    worst_student = students[worst_idx]
+    print(f"Student needing help: {worst_student} ({student_avg[worst_idx]:.2f})")
+    
+    # Struggling students (average < 75)
+    struggling = students[student_avg < 75]
+    print(f"Students below 75: {struggling}")
+    
+    # Top performers
+    top_students = students[student_avg >= 90]
+    print(f"Outstanding students (90+): {top_students}")
+    
+    separator()
+    print_code_section("3.4 - Grade normalization")
+    
+    # Normalize grades to 0-1 scale
+    min_grade = grades.min()
+    max_grade = grades.max()
+    normalized = (grades - min_grade) / (max_grade - min_grade)
+    print(f"Normalized grades (0-1 scale):")
+    print(normalized)
+    
+    # Scale to 0-100
+    scaled = normalized * 100
+    print(f"\nScaled to 0-100:")
+    print(scaled)
+    
+    separator()
+    print_code_section("3.5 - Pass/Fail statistics")
+    
+    passed = (student_avg >= 70).sum()
+    failed = (student_avg < 70).sum()
+    print(f"Passed: {passed} students")
+    print(f"Failed: {failed} students")
+    print(f"Pass rate: {passed/len(students)*100:.1f}%")
+    
+    # Grade distribution
+    A = (student_avg >= 90).sum()
+    B = ((student_avg >= 80) & (student_avg < 90)).sum()
+    C = ((student_avg >= 70) & (student_avg < 80)).sum()
+    F = (student_avg < 70).sum()
+    
+    print(f"\nGrade distribution:")
+    print(f"  A (90+): {A} students")
+    print(f"  B (80-89): {B} students")
+    print(f"  C (70-79): {C} students")
+    print(f"  F (<70): {F} students")
+    
+    separator()
+  
